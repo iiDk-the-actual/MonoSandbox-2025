@@ -3,17 +3,15 @@ using GorillaLocomotion;
 using HarmonyLib;
 using MonoSandbox.Behaviours;
 using MonoSandbox.Behaviours.UI;
+using Photon.Pun;
 using System;
 using System.ComponentModel;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
-using Utilla;
 
 namespace MonoSandbox
 {
-    [ModdedGamemode, Description("HauntedModMenu")]
-    [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     public class Plugin : BaseUnityPlugin
     {
@@ -105,11 +103,12 @@ namespace MonoSandbox
 
         public Plugin()
         {
-            Events.GameInitialized += OnGameInitialized;
             new Harmony(PluginInfo.GUID).PatchAll(typeof(Plugin).Assembly);
         }
 
-        public void OnGameInitialized(object sender, EventArgs e)
+        private bool hasInit;
+
+        public void OnGameInitialized()
         {
             gameObject.AddComponent<InputHandling>();
 
@@ -243,8 +242,7 @@ namespace MonoSandbox
 
         }
 
-        [ModdedGamemodeJoin]
-        public void OnJoin(string gamemode)
+        public void OnJoin()
         {
             InRoom = true;
 
@@ -254,8 +252,7 @@ namespace MonoSandbox
             }
         }
 
-        [ModdedGamemodeLeave]
-        public void OnLeave(string gamemode)
+        public void OnLeave()
         {
             InRoom = false;
 
@@ -267,8 +264,39 @@ namespace MonoSandbox
             _list.SetActive(false);
         }
 
+        private bool lastInRoom;
+        private bool lobbyWasModded;
         public void Update()
         {
+            if (GorillaLocomotion.Player.Instance != null)
+            {
+                if (!hasInit)
+                {
+                    hasInit = true;
+                    OnGameInitialized();
+                }
+
+                if (PhotonNetwork.InRoom && !lastInRoom)
+                {
+                    // if (true)
+                    {
+                        lobbyWasModded = true;
+                        OnJoin();
+                    }
+                }
+
+                if (!PhotonNetwork.InRoom && lastInRoom)
+                {
+                    if (!lobbyWasModded)
+                    {
+                        lobbyWasModded = false;
+                        OnLeave();
+                    }
+                }
+
+                lastInRoom = PhotonNetwork.InRoom;
+            }
+
             if (Player.Instance != null) RefCache.HitExists = Physics.Raycast(Player.Instance.rightControllerTransform.position, Player.Instance.rightControllerTransform.forward, out RefCache.Hit, 2000, _layerMask);
 
             #region List
