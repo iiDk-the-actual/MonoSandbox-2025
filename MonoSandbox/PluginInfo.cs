@@ -3,8 +3,8 @@
     public class PluginInfo
     {
         public const string
-            GUID = "homeoverspend.monosandbox", // HOMEOVERSPEND: anagram of both "dev" and "monosphere"
+            GUID = "goldentrophy.monosphere.dev.monosandbox", // how ya like that guid
             Name = "MonoSandbox",
-            Version = "1.2.2";
+            Version = "1.2.3";
     }
 }

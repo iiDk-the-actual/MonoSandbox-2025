@@ -278,20 +278,12 @@ namespace MonoSandbox
 
                 if (PhotonNetwork.InRoom && !lastInRoom)
                 {
-                    // if (true)
-                    {
-                        lobbyWasModded = true;
-                        OnJoin();
-                    }
+                    OnJoin();
                 }
 
                 if (!PhotonNetwork.InRoom && lastInRoom)
                 {
-                    if (!lobbyWasModded)
-                    {
-                        lobbyWasModded = false;
-                        OnLeave();
-                    }
+                    OnLeave();
                 }
 
                 lastInRoom = PhotonNetwork.InRoom;
