@@ -147,7 +147,7 @@ public class MineDetonate : MonoBehaviour
             nearyby.GetComponent<Explode>()?.ExplodeObject();
         }
 
-        Rigidbody PlayerRigidbody = GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>();
+        Rigidbody PlayerRigidbody = GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>();
         PlayerRigidbody.AddExplosionForce(2500f * Multiplier * Mathf.Sqrt(PlayerRigidbody.mass), transform.position, 5 + (0.75f * Multiplier));
 
         Destroy(gameObject, 3f);
@@ -204,7 +204,7 @@ public class BombDetonate : MonoBehaviour
                 nearyby.GetComponent<MineDetonate>()?.Explode();
                 nearyby.GetComponent<Explode>()?.ExplodeObject();
             }
-            Rigidbody PlayerRigidbody = GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>();
+            Rigidbody PlayerRigidbody = GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>();
             PlayerRigidbody.AddExplosionForce(1500f * multiplier * Mathf.Sqrt(PlayerRigidbody.mass), transform.position, 5 + (0.75f * multiplier));
             Invoke(nameof(Delete), 3);
         }

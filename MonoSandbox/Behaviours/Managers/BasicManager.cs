@@ -430,7 +430,7 @@ public class Explode : MonoBehaviour
                 nearyby.GetComponent<Explode>()?.ExplodeObject();
             }
 
-            Rigidbody PlayerRigidbody = GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>();
+            Rigidbody PlayerRigidbody = GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>();
             PlayerRigidbody.AddExplosionForce(2500f * Multiplier * Mathf.Sqrt(PlayerRigidbody.mass), transform.position, 5 + (0.75f * Multiplier));
 
             Invoke(nameof(Destroy), 3);

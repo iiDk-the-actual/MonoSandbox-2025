@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MonoSandbox.Patches
 {
-    [HarmonyPatch(typeof(Player), "GetSlidePercentage")]
+    [HarmonyPatch(typeof(GTPlayer), "GetSlidePercentage")]
     public class PlayerSurfacePatch
     {
         public static void Prefix(RaycastHit raycastHit)

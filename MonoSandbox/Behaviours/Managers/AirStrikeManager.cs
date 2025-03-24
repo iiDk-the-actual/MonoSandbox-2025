@@ -103,7 +103,7 @@ public class Airstrike : MonoBehaviour
             Rigidbody rig = nearyby.GetComponent<Rigidbody>();
             if (rig != null && rig.useGravity) rig.AddExplosionForce(14400f, transform.position, 80f, 0.5f, ForceMode.Force);
         }
-        Rigidbody PlayerRigidbody = GorillaLocomotion.Player.Instance.GetComponent<Rigidbody>();
+        Rigidbody PlayerRigidbody = GorillaLocomotion.GTPlayer.Instance.GetComponent<Rigidbody>();
         PlayerRigidbody.AddExplosionForce(14400f * Mathf.Sqrt(PlayerRigidbody.mass), transform.position, 80f, 0.5f, ForceMode.Force);
         Invoke(nameof(Finish), 2);
     }
